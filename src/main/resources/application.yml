@@ -14,18 +14,18 @@ spring:
         registerHealthCheck: false
       config:
         enabled: false
-      host: 192.168.1.102
+      host: 192.168.0.3
     gateway:
       discovery:
         locator:
           enabled: true
       routes:
-        - id: pizzas-service
-          uri: lb://pizzas-service
+        - id: pizza-service
+          uri: lb://pizza-service
           predicates:
-            - Path=/pizzas/**
+            - Path=/api/1.0/pizzas/**
           filters:
-            - RewritePath=/pizzas/(?<path>.*), /pizzas/$\{path}
+            - RewritePath=/api/1.0/pizzas/(?<path>.*), /api/1.0/pizzas/$\{path}
 #        - id: auth
 #          uri: http://localhost:9100
 #          predicates:
