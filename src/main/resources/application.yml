@@ -26,10 +26,14 @@ spring:
             - Path=/api/1.0/pizzas/**
           filters:
             - RewritePath=/api/1.0/pizzas/(?<path>.*), /api/1.0/pizzas/$\{path}
-#        - id: auth
-#          uri: http://localhost:9100
-#          predicates:
-#            - Path=/auth/**
-#            - Method=POST
-#          filters:
-#            - RewritePath=/auth/(?<path>.*), /auth/$\{path}
+        - id: pizzaorder-service
+          uri: lb://pizzaorder-service
+          predicates:
+            - Path=/api/1.0/orders/**
+        - id: pizza-auth-service
+          uri: http://localhost:9100
+          predicates:
+            - Path=/auth/**
+            - Method=POST
+          filters:
+            - RewritePath=/auth/(?<path>.*), /auth/$\{path}
